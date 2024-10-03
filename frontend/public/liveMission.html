@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSLV Launch Vehicle Information</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #2d3748; /* Darker background */
+        color: white;
+        height: 100%;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+      .video-container {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* Aspect ratio for larger video */
+        margin-bottom: 20px;
+      }
+      .video-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .live-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        font-weight: bold;
+        z-index: 10;
+        border-radius: 5px;
+      }
+      .mission-progress {
+        width: 100%;
+        height: 40px;
+        background-color: #4a5568; /* Darker progress background */
+        position: relative;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        overflow: hidden; /* Add overflow hidden for rounded edges */
+      }
+      #progress-bar {
+        height: 100%;
+        background-color: #007bff; /* Blue color for the progress */
+        width: 0;
+        transition: width 1s ease; /* Smooth transition */
+      }
+      .progress-point {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        background-color: white;
+        border-radius: 50%;
+      }
+      .progress-label {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .mission-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .stat {
+        font-size: 18px;
+        text-align: center; /* Center align stats */
+      }
+      .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .info {
+        flex: 1;
+        margin-right: 30px;
+      }
+      h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 22px;
+        line-height: 1.8;
+      }
+      .highlight {
+        font-style: italic;
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 24px;
+      }
+      .details {
+        margin-top: 30px;
+      }
+      .details p {
+        margin: 8px 0;
+        font-size: 22px;
+      }
+      .learn-more {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 15px 30px;
+        text-decoration: none;
+        font-size: 22px;
+        border-radius: 5px;
+        margin-top: 30px;
+        transition: background-color 0.3s;
+      }
+      .learn-more:hover {
+        background-color: #0056b3;
+      }
+      .phase-image {
+        max-width: 100%; /* Responsive image */
+        height: auto; /* Maintain aspect ratio */
+        margin: 20px 0; /* Space around the image */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Menu icon -->
+      <div class="menu-icon">☰</div>
+
+      <!-- Video Container with YouTube Embed -->
+      <div class="video-container">
+        <div class="live-indicator">LIVE</div>
+        <iframe
+          class="video-frame"
+          src="https://www.youtube.com/embed/jynmNenneFk?start=2088"
+          frameborder="0"
+          allowfullscreen
+          title="Live viewing of GSLV-F14/INSAT-3DS mission"
+        ></iframe>
+      </div>
+
+      <!-- Mission Stats directly below the video -->
+      <div class="mission-stats">
+        <div class="stat">
+          <div>Altitude</div>
+          <div class="stat-value" id="altitude">78 KM</div>
+        </div>
+        <div class="stat">
+          <div>Velocity</div>
+          <div class="stat-value" id="velocity">4343 KM/H</div>
+        </div>
+        <div class="stat">
+          <div>Mission Time</div>
+          <div class="stat-value" id="mission-time">+19:43:53</div>
+        </div>
+      </div>
+
+      <!-- Mission Progress Bar -->
+      <div class="mission-progress">
+        <div id="progress-bar"></div>
+        <div class="progress-point" style="left: 10%">
+          <div class="progress-label">Launch</div>
+        </div>
+        <div class="progress-point" style="left: 30%">
+          <div class="progress-label">Core Ignition</div>
+        </div>
+        <div class="progress-point" style="left: 50%">
+          <div class="progress-label">Strap On Separation</div>
+        </div>
+        <div class="progress-point" style="left: 70%">
+          <div class="progress-label">Fairing Separation</div>
+        </div>
+        <div class="progress-point" style="left: 90%">
+          <div class="progress-label">Stage Separation</div>
+        </div>
+      </div>
+
+      <!-- Dynamic Information Section -->
+      <div class="info">
+        <h1 id="phase-title">Launch Vehicle Phase: Pre-Launch</h1>
+        <p id="phase-description">
+          The GSLV is being prepared for launch. Systems are undergoing final
+          checks before the countdown begins.
+        </p>
+        <div class="details" id="phase-details">
+          <p>
+            <span class="highlight">Launch Site:</span> Satish Dhawan Space
+            Centre
+          </p>
+          <p><span class="highlight">Fuel Type:</span> Cryogenic</p>
+        </div>
+        <a href="#" class="learn-more">Learn More</a>
+      </div>
+    </div>
+
+    <!-- JavaScript for dynamic mission stats and phase updates -->
+    <script>
+      // Initial variables
+      let elapsedTime = 0; // Elapsed time in seconds
+      const totalMissionDuration = 240; // Total mission duration in seconds (4 minutes)
+      const milestones = [10, 30, 50, 70, 90]; // Milestone percentages
+      const phaseData = [
+        {
+          title: "Launch",
+          description:
+            "The launch stage signifies the very beginning of the rocket's journey, commencing with its lift-off from the launch pad.",
+          details:
+            "The entire launch process kicks off with a thorough series of system checks to ensure that all systems are functioning optimally. Once all checks are completed and the countdown reaches zero, the engines ignite. The GSLV employs a combination of solid and liquid fuels to generate the necessary thrust for liftoff. The initial ignition results in a powerful thrust that propels the rocket upwards into the atmosphere.",
+          components: "GSLV launch vehicle, solid rocket boosters.",
+          howItWorks:
+            "This stage is crucial as it must overcome the significant gravitational pull of the Earth. Successfully lifting off is vital for setting the rocket on its path toward space. Without this initial phase, the subsequent stages would not be possible, highlighting the importance of precise engineering and timing.",
+          imageUrl: "Launch.jpg", // Placeholder for the launch image
+          milestone: 10,
+        },
+        {
+          title: "Core Ignition",
+          description:
+            "Following the successful launch, the next key phase is known as core ignition, which involves the activation of the rocket's main engines.",
+          details:
+            "In the GSLV-14, the core stage is equipped with powerful liquid engines designed to burn fuel efficiently and produce significant thrust. Core ignition occurs shortly after liftoff, at a carefully calculated moment. This timing is critical as it provides the rocket with additional thrust, ensuring it can reach the higher altitudes necessary to escape the bulk of the Earth’s atmosphere.",
+          components: "Liquid rocket engines, oxidizers.",
+          howItWorks:
+            "The core ignition stage is vital for maintaining the rocket's momentum. By firing the core engines at the right moment, the vehicle can continue to accelerate, gaining the speed needed to ascend further into space. Without this additional thrust, the rocket could slow down or fail to achieve the required altitude.",
+          imageUrl: "core-ignition.jpg", // Placeholder for the core ignition image
+          milestone: 30,
+        },
+        {
+          title: "Strap-On Separation",
+          description:
+            "The strap-on boosters have been jettisoned after their fuel was depleted.",
+          details:
+            "With the boosters gone, the core stage continues to carry the rocket into space.",
+          components: "Strap-on boosters, fuel tanks.",
+          howItWorks:
+            "Once the fuel is expended, the boosters detach to reduce weight.",
+          imageUrl: "strap-on-separation.jpg", // Placeholder for the strap-on separation image
+          milestone: 50,
+        },
+        {
+          title: "Fairing Separation",
+          description:
+            "The payload fairing has separated, revealing the satellite inside.",
+          details:
+            "The rocket has reached space, and the payload is now exposed to the vacuum of space.",
+          components: "Payload fairing, satellite.",
+          howItWorks:
+            "The fairing protects the payload during ascent and is jettisoned once in space.",
+          imageUrl: "fairing-separation.jpg", // Placeholder for the fairing separation image
+          milestone: 70,
+        },
+        {
+          title: "Stage Separation",
+          description:
+            "The first stage has separated, and the second stage has taken over.",
+          details:
+            "The second stage will provide the remaining thrust needed to place the satellite into orbit.",
+          components: "Second stage engines, guidance system.",
+          howItWorks:
+            "The stages separate to allow the upper stage to ignite and continue the journey.",
+          imageUrl: "stage-separation.jpg", // Placeholder for the stage separation image
+          milestone: 90,
+        },
+      ];
+
+      // Function to update mission stats (simulated)
+      function updateMissionStats() {
+        altitude = Math.min((elapsedTime / totalMissionDuration) * 100, 100); // Max 100 km
+        velocity = Math.min((elapsedTime / totalMissionDuration) * 8000, 8000); // Max 8000 km/h
+
+        // Update stat values dynamically
+        document.getElementById("altitude").textContent = altitude + " KM";
+        document.getElementById("velocity").textContent = velocity + " KM/H";
+
+        // Update mission time
+        const hours = String(Math.floor(elapsedTime / 3600)).padStart(2, "0");
+        const minutes = String(Math.floor((elapsedTime % 3600) / 60)).padStart(
+          2,
+          "0"
+        );
+        const seconds = String(elapsedTime % 60).padStart(2, "0");
+        document.getElementById(
+          "mission-time"
+        ).textContent = `+${hours}:${minutes}:${seconds}`;
+
+        // Update progress bar every second
+        if (elapsedTime <= totalMissionDuration) {
+          const progress = (elapsedTime / totalMissionDuration) * 100;
+          document.getElementById("progress-bar").style.width = progress + "%";
+
+          // Change color for milestones and update phase information
+          phaseData.forEach((phase) => {
+            if (
+              progress >= phase.milestone &&
+              !document
+                .querySelector(`.progress-point[style*="${phase.milestone}%"]`)
+                .classList.contains("reached")
+            ) {
+              document.querySelector(
+                `.progress-point[style*="${phase.milestone}%"]`
+              ).style.backgroundColor = "#FFD700"; // Gold for reached milestones
+              document
+                .querySelector(`.progress-point[style*="${phase.milestone}%"]`)
+                .classList.add("reached");
+
+              // Update the information section dynamically
+              document.getElementById("phase-title").textContent = phase.title;
+              document.getElementById("phase-description").textContent =
+                phase.description;
+              document.getElementById("phase-details").innerHTML = `
+                            <p><span class="highlight">Details:</span> ${phase.details}</p>
+                            <p><span class="highlight">Components Used:</span> ${phase.components}</p>
+                            <p><span class="highlight">How It Works:</span> ${phase.howItWorks}</p>
+                            <img src="${phase.imageUrl}" alt="${phase.title} image" class="phase-image" />
+                        `;
+            }
+          });
+        }
+      }
+
+      // Update stats and progress every second
+      setInterval(() => {
+        elapsedTime++;
+        updateMissionStats();
+      }, 1000);
+    </script>
+  </body>
+</html>

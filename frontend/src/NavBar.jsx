@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
+import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   return (
-    <header className="flex w-full items-center bg-dark">
+    <header className="flex w-full items-center">
       <div className="container mx-auto">
         <div className="relative -mx-4 flex items-center justify-between">
           <div className="w-60 max-w-full px-4">
@@ -33,7 +33,7 @@ const Navbar = () => {
               </button>
               {/* Mobile and Desktop Navbar */}
               <nav
-                className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-dark-2 px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none ${
+                className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg  px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none ${
                   navbarOpen ? "" : "hidden"
                 }`}
                 id="navbarCollapse"
@@ -41,7 +41,7 @@ const Navbar = () => {
                 <ul className="block lg:flex">
                   <li>
                     <a
-                      href="/"
+                      href="./PSLV.html"
                       className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
                     >
                       PSLV
@@ -49,15 +49,15 @@ const Navbar = () => {
                   </li>
                   <li>
                     <a
-                      href="/SLVt"
+                      href="./SSLV.html"
                       className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
                     >
-                      SLV
+                      SSLV
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/GSLV"
+                      href="./GSLV.html"
                       className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
                     >
                       GSLV
@@ -66,20 +66,15 @@ const Navbar = () => {
                 </ul>
               </nav>
             </div>
-            {/* Right Side Links (Login & Sign Up) */}
             <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
-              <a
-                href="/login"
-                className="px-7 py-3 text-base font-medium text-white hover:text-primary"
-              >
+              <Link to="/login" className="px-7 py-3 text-base font-medium text-white hover:text-primary">
                 Login
-              </a>
-              <a
-                href="/signup"
+              </Link>
+              <Link to="/signup"
                 className="rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-primary/90"
               >
                 Sign Up
-              </a>
+              </Link>
             </div>
           </div>
         </div>
