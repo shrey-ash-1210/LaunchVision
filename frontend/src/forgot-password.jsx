@@ -8,11 +8,11 @@ const ForgotPassword = () => {
     };
     if (!isVisible) return null; // Hide component if not visible
     return (
-    <section className="bg-gray-1 py-20 lg:py-[120px]">
+    <section className="bg-gray-1 py-50 lg:py-[0px]">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
-            <div className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white px-10 py-16 text-center dark:bg-dark-2 sm:px-12 md:px-[60px]">
+            <div className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white px-10 py-4 text-center dark:bg-dark-2 sm:px-12 md:px-[60px]">
             <button 
                 className="absolute top-4 right-4 text-gray-600 dark:text-white hover:text-red-500"
                 onClick={closePopup}

@@ -11,11 +11,11 @@ const LiveMissionSection = () => {
 
   return (
     <div
-      className="fixed bottom-20 left-20 cursor-pointer"
+      className="fixed bottom-[5vh] left-[5vw] cursor-pointer z -50"
       onClick={handleRedirect} // Redirect on clicking the whole div
     >
       <p className="text-white text-base mb-2 font-bold">Live Mission</p>
-      <DarkSemiRoundedButton label="Live" /> 
+      <DarkSemiRoundedButton label="Live" className="transition transform hover:scale-105"/> 
     </div>
   );
 };

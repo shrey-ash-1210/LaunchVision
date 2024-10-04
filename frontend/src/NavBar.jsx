@@ -40,27 +40,31 @@ const Navbar = () => {
               >
                 <ul className="block lg:flex">
                   <li>
-                    <a
-                      href="./PSLV.html"
+                    <Link to="/pslv"
                       className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
                     >
                       PSLV
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="./SSLV.html"
+                    <Link to="/sslv"
                       className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
                     >
                       SSLV
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="./GSLV.html"
-                      className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
+                    <Link to="/gslv"
+                       className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
                     >
                       GSLV
+                    </Link>
+                  </li>
+                  <li>
+                    <a href="./upcoming.html"
+                       className="flex py-2 text-base font-medium text-white hover:text-white lg:ml-12 lg:inline-flex"
+                    >
+                      Upcoming Events
                     </a>
                   </li>
                 </ul>
